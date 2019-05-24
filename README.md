@@ -6,3 +6,7 @@ Goal for this program:
 - Create a good looking UI
 - Run the website throgh bottle and python
 - Manage sales and stocking items.
+
+Ver-2
+  Asthetics for home page, python routing for Css, script and images.
+  Products page created, nothing in it.
