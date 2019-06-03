@@ -14,3 +14,6 @@ Ver-2
 Ver-3
   Product page created with basic card function, simple class and array functions in python file to manage the bro cards.
   Images uploaded
+  
+Ver-4
+  Product page finished with purchase button functioning, purchase and purchase_success pages created managing the purchase proccess of     the products with changes to the python file adding functionality. Planning document for this version.
