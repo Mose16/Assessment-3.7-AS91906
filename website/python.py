@@ -36,7 +36,7 @@ bros = [ #Test data filled with test bros
     Bro("John","Goes to the gym.","john.jpg", 100, True),
     Bro("Liam","Will serinade. Has guitar, good boi. Ideal for girls.","liam.jpg", 100, True),
     Bro("Fox","Will sit and play nintendo with you for as long as you like. Presence makes you feel good. Introvertes love.","laimf.jpg", 78, True),
-    Bro("Dom","Will make you feel geneticaly inferior. Has good beauty products. Gays would buy again.","dom.jpg", 20, False)
+    Bro("Dom","Will make you feel geneticaly inferior. Has good beauty products. Gays would buy again.","dom.jpg", 20, True)
 ]
 
 ###Pages###
@@ -97,6 +97,33 @@ def purchase_success():
     current_bro.stock = False #Change stock
     current_bro.booked_details = [Fname, Lname, str(curr_date.strftime("%B")) + " " + str(curr_date.day) + ", " + str(curr_date.year), date_, total_cost] #Store the booked details in the object
     return dict(bro = current_bro) #Pass object back into page
+
+
+#return_product page
+@route('/return_product.html')
+@view('return_product.html')
+def return_product():
+    pass
+
+#return_success page
+@route('/return_success', method = "POST")
+@view('return_success')
+def return_success():
+    #Get form data entries
+    Fname = request.forms.get("first_name")
+    Lname = request.forms.get("last_name")
+    
+    #Find bro object by name
+    found_purchase = None
+    for bro in bros:
+        if bro.stock == False: 
+            if bro.booked_details[0] == Fname and bro.booked_details[1] == Lname:
+                found_purchase = bro
+                break
+    if found_purchase == None:  
+        return dict(bro = False)
+    found_purchase.stock = True #Change stock
+    return dict(bro = found_purchase) #Return found_bro to page
 
 
 ##Static files###
