@@ -1,0 +1,42 @@
+<!DOCTYPE.html>
+<html>
+	%include('Shared/header.html')
+	%include('Shared/navigation.html')
+	<head>
+		<link href="/css/products.css" rel="stylesheet" type="text/css">
+		<link href="/script/products.js">
+		<script src="jquery-3.3.1.min.js"></script>
+	</head>
+	<body>
+		<div class="grid">
+			<div class="col s12 m7">
+				<h2 class="header" style="text-align:center">The Bros:</h2>
+				%for bro in bros_list:
+				<div class="card horizontal" style="width:45%; float:left; margin-left: 3%; height:500px;">
+					<div class="card-image">
+						<img src="/img/{{bro.img}}" alt="Nope" style="height:100%">
+					</div>
+					<div class="card-stacked">
+						<div class="card-content">
+							<h4>{{bro.name}}</h4>
+							<p></br>{{bro.description}}</p>
+						</div>
+						<div class="card-action">
+							%if bro.stock:
+								<a href="purchase/{{bro.name}}">I WANT dis one!</a>
+							%else:
+								<p style="display:inline; color: #995500; line-height: 1.5; text-transform: uppercase;">Sorry! Booked out!</p>
+							%end	
+						</div>
+					</div>
+				</div>
+				%end
+			</div>
+			<div id="bottom">
+				<p style="display:inline">Please use the navigation bar instead of the back and forward buttons  |</p> <address style="display:inline">admin@rentabro.co.nz</address>
+			</div>
+			<div id="fill" style="width:100vw; height:0;">
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,101 @@
+body {
+	margin-right:-10px;
+	overflow-x:hidden;
+}
+* {
+	margin:0;
+	padding:0;
+	font-family:verdana;
+}
+a {
+	color:black;
+	text-decoration:none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+	z-index:1;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 1);
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 100, 100, 1);
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.grid {
+	/*Grid controls*/
+	display:grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 
+	auto
+	1fr
+	auto;
+    grid-template-areas:
+	"top"
+	"center"
+	"bottom";
+}
+
+#top {
+	grid-area: top;
+	
+	color:#5791c1;
+	z-index:2;
+	padding:10px;
+	padding-right:20px;
+	border-bottom:2px solid grey;
+}
+#top > * {
+	display:inline-block;
+}
+
+#top i{
+	color:#5791c1;
+	margin-top:5;
+}
+
+#home {
+	font-size:25px;
+	display:inline-block;
+	padding:10;
+	vertical-align:middle;
+}
+
+.pages {	
+	float:right;
+	text-align:center;
+}
+
+.pages a{	
+	font-size:22px;
+	float:left;
+}
+
+.pages div {
+	padding: 12px 16px;
+}
+.pages div:hover {
+	color:#5791c1;
+	background-color:rgba(150,150,150, 0.7);
+}
+
+
+#center {
+	grid-area: center;
+	
+	-webkit-user-select:none;
+	width:100%;
+}
+
+#bottom {
+	grid-area:bottom;
+	
+	border-top:2px solid grey;
+	padding:5px;
+	text-align:center;
+}
