@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<link href="/css/purchase.css" rel="stylesheet" type="text/css">
+	</head>
+	%include('Shared/header.html')
+	%include('Shared/navigation.html')
+	<body>
+		<div style="padding: 150px 250px;">
+			 <div class="row" style="text-align: center;">
+				<h1>Bro: {{bro.name}}</h1>
+				<p>Booked by: {{bro.booked_details[0]}} {{bro.booked_details[1]}}</p>
+				<p>From {{bro.booked_details[2]}} to {{bro.booked_details[3]}}</p>
+				<p>Cost: ${{bro.booked_details[4]}} --- Please pay in cash</p>
