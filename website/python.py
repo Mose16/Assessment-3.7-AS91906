@@ -15,18 +15,18 @@ class Bro: #Bro class
 
 ###Arrays###     
 MONTHS = { #List of months with their numbers to help convert the dates on purchase success page
-    'January' : 1,
-    'Febuary' : 2,
-    'March' : 3,
-    'April' : 4,
+    'Jan' : 1,
+    'Feb' : 2,
+    'Mar' : 3,
+    'Apr' : 4,
     'May' : 5,
-    'June' : 6,
-    'July' : 7,
-    'August' : 8,
-    'September' : 9, 
-    'October' : 10,
-    'November' : 11,
-    'December' : 12
+    'Jun' : 6,
+    'Jul' : 7,
+    'Aug' : 8,
+    'Sep' : 9, 
+    'Oct' : 10,
+    'Nov' : 11,
+    'Dec' : 12
 }
         
 bros = [ #Test data filled with test bros
@@ -117,10 +117,12 @@ def return_success():
     for bro in bros:
         if bro.stock == False: 
             if bro.booked_details[0] == Fname and bro.booked_details[1] == Lname:
-                found_bro = bro
+                found_purchase = bro
                 break
-    found_bro.stock = True #Change stock
-    return dict(bro = found_bro) #Return found_bro to page
+    if found_purchase == None:  
+        return dict(bro = False)
+    found_purchase.stock = True #Change stock
+    return dict(bro = found_purchase) #Return found_bro to page
 
 #Application page
 @route('/application.html')
