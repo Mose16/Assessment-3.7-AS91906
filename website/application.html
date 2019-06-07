@@ -1,0 +1,50 @@
+<!DOCTYPE.html>
+<html>
+	<head>
+		<link href="/css/purchase.css" rel="stylesheet" type="text/css">
+	</head>
+	%include('Shared/header.html')
+	%include('Shared/navigation.html')
+	<body>
+		<div style="padding: 100px 250px;">
+			 <div class="row">
+				<form class="col s12" action="/application_success" method="POST">
+				  <div class="row">
+					<div class="input-field col s6">
+					  <input name="first_name" id="first_name" type="text" class="validate">
+					  <label for="first_name">Bob</label>
+					</div>
+					<div class="input-field col s6">
+					  <input name="last_name" id="last_name" type="text" class="validate">
+					  <label for="last_name">Last Name</label>
+					</div>
+				  </div>
+				  <div class="row">
+					<div class="input-field col s12">
+						<textarea name="description" id="textarea1" class="materialize-textarea"></textarea>
+						<label for="textarea1">Description</label>
+					</div>
+				  </div>
+				  <div class="row">
+					<div class="file-field input-field">
+						<div class="input-field col s12">
+							<textarea name="cost" id="textarea2" class="materialize-textarea"></textarea>
+							<label for="textarea2">Cost</label>
+						</div>
+					</div>
+				  </div>
+				  <div class="row" style="text-align: center;">
+					<button class="btn waves-effect waves-light blue" type="submit" name="action" style="flaot:center; position:center;">Sign Up
+						<i class="material-icons right">send</i>
+					</button>
+				  </div>
+				</form>
+			 </div>
+		</div>
+	</body>
+	<script>
+		$(document).ready(function(){
+			$('.datepicker').datepicker();
+		});
+    </script>
+</html>
