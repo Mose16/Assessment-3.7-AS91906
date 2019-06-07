@@ -125,6 +125,26 @@ def return_success():
     found_purchase.stock = True #Change stock
     return dict(bro = found_purchase) #Return found_bro to page
 
+#Application page
+@route('/application.html')
+@view('application.html')
+def application():
+    pass
+
+#Application success page
+@route('/application_success', method = "POST")
+@view('application_success')
+def application_success():
+    #Get form data entries
+    Fname = request.forms.get("first_name")
+    Lname = request.forms.get("last_name")
+    description = request.forms.get("description")
+    cost = int(request.forms.get("cost"))
+    
+    bros.append(Bro(Fname, description, "empty.jpg", cost, True))
+    return dict(bro = bros[-1])
+
+
 
 ##Static files###
 #Images
