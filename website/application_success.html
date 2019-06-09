@@ -7,4 +7,13 @@
 	<body>
 		<div style="padding: 150px 250px;">
 			 <div class="row" style="text-align: center;">
-				<p>Thanks {{bro.name}}. Your application is being reviewed.</p>
+				%if bro != False:
+					<p>Thanks {{bro.name}}. Your application is being reviewed.</p>
+				%else:
+					<h1>Error!</h1>
+					<p>Please input a number for cost, no decimals allowed</p>
+				%end
+			</div>
+		</div>
+	</body>
+</html>

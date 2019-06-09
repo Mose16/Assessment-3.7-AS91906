@@ -36,7 +36,7 @@ bros = [ #Test data filled with test bros
     Bro("John","Goes to the gym.","john.jpg", 100, True),
     Bro("Liam","Will serinade. Has guitar, good boi. Ideal for girls.","liam.jpg", 100, True),
     Bro("Fox","Will sit and play nintendo with you for as long as you like. Presence makes you feel good. Introvertes love.","laimf.jpg", 78, True),
-    Bro("Dom","Will make you feel geneticaly inferior. Has good beauty products. Gays would buy again.","dom.jpg", 20, False)
+    Bro("Dom","Will make you feel geneticaly inferior. Has good beauty products. Gays would buy again.","dom.jpg", 20, True)
 ]
 
 ###Pages###
@@ -134,14 +134,17 @@ def application():
 @route('/application_success', method = "POST")
 @view('application_success')
 def application_success():
-    #Get form data entries
-    Fname = request.forms.get("first_name")
-    Lname = request.forms.get("last_name")
-    description = request.forms.get("description")
-    cost = int(request.forms.get("cost"))
-    
-    bros.append(Bro(Fname, description, "empty.jpg", cost, True))
-    return dict(bro = bros[-1])
+    try:
+        #Get form data entries
+        Fname = request.forms.get("first_name")
+        Lname = request.forms.get("last_name")
+        description = request.forms.get("description")
+        cost = int(request.forms.get("cost"))
+        
+        bros.append(Bro(Fname, description, "empty.jpg", cost, True, ""))
+        return dict(bro = bros[-1])
+    except:
+        return dict(bro = False)
 
 
 
