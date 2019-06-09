@@ -20,3 +20,6 @@ Ver-4
   
 Ver-5
   Create a return system to restock the items, requires name and last name of the booker.
+
+Ver-6
+  Create a application form to add new stock to products.
