@@ -72,31 +72,36 @@ def purchase(name):
 @route('/purchase_success', method = "POST")
 @view('purchase_success')
 def purchase_success():
-    #Get form data entries
-    Fname = request.forms.get("first_name")
-    Lname = request.forms.get("last_name")
-    date_ = request.forms.get("date") #(Format i think is (Month(first 3 characters) dd, yyyy)
-    
-    #Format the date
-    date_alt = date_.split(" ")
-    date_alt[1] = date_alt[1].strip(",")
-    
-    #Calculate the difference in date and then the total cost
-    curr_date = datetime.now()
-    d0 = date(curr_date.year, curr_date.month, curr_date.day)
-    d1 = date(int(date_alt[2]), int(MONTHS[date_alt[0]]), int(date_alt[1]))
-    delta = d1 - d0
-    
-    if delta * -1 == abs(delta): #If user selected a past date then make the year go up by one
-        d0 = date(curr_date.year, curr_date.month, curr_date.day)
-        d1 = date(int(date_alt[2]) + 1, int(MONTHS[date_alt[0]]), int(date_alt[1]))
-        delta = d1 - d0        
+    try:
+        #Get form data entries
+        Fname = request.forms.get("first_name")
+        Lname = request.forms.get("last_name")
+        date_ = request.forms.get("date") #(Format i think is (Month(first 3 characters) dd, yyyy)
         
-    total_cost = current_bro.cost * min(delta.days, 1)
-    total_cost = str(total_cost)
-    current_bro.stock = False #Change stock
-    current_bro.booked_details = [Fname, Lname, str(curr_date.strftime("%B")) + " " + str(curr_date.day) + ", " + str(curr_date.year), date_, total_cost] #Store the booked details in the object
-    return dict(bro = current_bro) #Pass object back into page
+        #Format the date
+        date_alt = date_.split(" ")
+        date_alt[1] = date_alt[1].strip(",")
+        
+        #Calculate the difference in date and then the total cost
+        curr_date = datetime.now()
+        d0 = date(curr_date.year, curr_date.month, curr_date.day)
+        d1 = date(int(date_alt[2]), int(MONTHS[date_alt[0]]), int(date_alt[1]))
+        delta = d1 - d0
+        
+        if delta * -1 == abs(delta): #If user selected a past date then make the year go up by one
+            d0 = date(curr_date.year, curr_date.month, curr_date.day)
+            d1 = date(int(date_alt[2]) + 1, int(MONTHS[date_alt[0]]), int(date_alt[1]))
+            delta = d1 - d0        
+            
+        total_cost = current_bro.cost
+        if total_cost != abs(total_cost):
+            return dict(bro = False)
+        total_cost = str(total_cost)
+        current_bro.stock = False #Change stock
+        current_bro.booked_details = [Fname, Lname, str(curr_date.strftime("%B")) + " " + str(curr_date.day) + ", " + str(curr_date.year), date_, total_cost] #Store the booked details in the object
+        return dict(bro = current_bro) #Pass object back into page
+    except:
+        return dict(bro = False)
 
 #return_product page
 @route('/return_product.html')
@@ -140,6 +145,9 @@ def application_success():
         Lname = request.forms.get("last_name")
         description = request.forms.get("description")
         cost = int(request.forms.get("cost"))
+        
+        if cost != abs(cost):
+            return dict(bro = False) 
         
         bros.append(Bro(Fname, description, "empty.jpg", cost, True, ""))
         return dict(bro = bros[-1])

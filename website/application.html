@@ -11,25 +11,25 @@
 				<form class="col s12" action="/application_success" method="POST">
 				  <div class="row">
 					<div class="input-field col s6">
-					  <input name="first_name" id="first_name" type="text" class="validate">
-					  <label for="first_name">Bob</label>
+					  <input name="first_name" id="first_name" type="text" class="validate" required>
+					  <label for="first_name">First Name</label>
 					</div>
 					<div class="input-field col s6">
-					  <input name="last_name" id="last_name" type="text" class="validate">
+					  <input name="last_name" id="last_name" type="text" class="validate" required>
 					  <label for="last_name">Last Name</label>
 					</div>
 				  </div>
 				  <div class="row">
 					<div class="input-field col s12">
-						<textarea name="description" id="textarea1" class="materialize-textarea"></textarea>
+						<textarea name="description" id="textarea1" class="materialize-textarea" required></textarea>
 						<label for="textarea1">Description</label>
 					</div>
 				  </div>
 				  <div class="row">
 					<div class="file-field input-field">
 						<div class="input-field col s12">
-							<textarea name="cost" id="textarea2" class="materialize-textarea"></textarea>
-							<label for="textarea2">Cost</label>
+							<input name="cost" id="cost" type="number" class="validate" required>
+							<label for="cost">Cost</label>
 						</div>
 					</div>
 				  </div>
