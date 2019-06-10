@@ -10,26 +10,31 @@
 	<body>
 		<div class="grid">
 			<div class="col s12 m7">
-				<h2 class="header" style="text-align:center">The Bros:</h2>
-				%for bro in bros_list:
-				<div class="card horizontal" style="width:45%; float:left; margin-left: 3%; height:500px;">
-					<div class="card-image">
-						<img src="/img/{{bro.img}}" alt="Nope" style="height:100%">
-					</div>
-					<div class="card-stacked">
-						<div class="card-content">
-							<h4>{{bro.name}}</h4>
-							<p></br>{{bro.description}}</p>
+				%if bros_list != False:
+					<h2 class="header" style="text-align:center">The Bros:</h2>
+					%for bro in bros_list:
+					<div class="card horizontal" style="width:45%; float:left; margin-left: 3%; height:500px;">
+						<div class="card-image">
+							<img src="/img/{{bro.img}}" alt="Nope" style="height:100%">
 						</div>
-						<div class="card-action">
-							%if bro.stock:
-								<a href="purchase/{{bro.name}}">I WANT dis one!</a>
-							%else:
-								<p style="display:inline; color: #995500; line-height: 1.5; text-transform: uppercase;">Sorry! Booked out!</p>
-							%end	
+						<div class="card-stacked">
+							<div class="card-content">
+								<h4>{{bro.name}}</h4>
+								<p></br>{{bro.description}}</p>
+							</div>
+							<div class="card-action">
+								%if bro.stock:
+									<a href="purchase/{{bro.name}}">I WANT dis one!</a>
+								%else:
+									<p style="display:inline; color: #995500; line-height: 1.5; text-transform: uppercase;">Sorry! Booked out!</p>
+								%end	
+							</div>
 						</div>
 					</div>
-				</div>
+					%end
+				%else:
+					<h1>Error!</h1>
+					<a href="/"><p>Go back</p></a>
 				%end
 			</div>
 			<div id="bottom">
