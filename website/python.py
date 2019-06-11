@@ -36,7 +36,7 @@ bros = [ #Test data filled with test bros
     Bro("John","Goes to the gym.","john.jpg", 100, True),
     Bro("Liam","Will serinade. Has guitar, good boi. Ideal for girls.","liam.jpg", 100, True),
     Bro("Fox","Will sit and play nintendo with you for as long as you like. Presence makes you feel good. Introvertes love.","laimf.jpg", 78, True),
-    Bro("Dom","Will make you feel geneticaly inferior. Has good beauty products. Gays would buy again.","dom.jpg", 20, False)
+    Bro("Dom","Will make you feel geneticaly inferior. Has good beauty products. Gays would buy again.","dom.jpg", 20, True)
 ]
 
 ###Pages###
@@ -44,59 +44,130 @@ bros = [ #Test data filled with test bros
 @route('/')
 @view('index')
 def index():
-    pass
+    return dict(bro = True) #Return True so that the page does not throw an error
 
 #Product page
 @route('/products.html')
 @view('products.html')
 def products():
-    return dict(bros_list = bros)
+    try:
+        return dict(bros_list = bros)
+    except: #If any error accurs display an error message
+        return dict(bros_list = False)    
 
 #Purchase page
 current_bro = None #This variable is used to easily pass the currently processed bro through pages, (Purchase -> purchase success page)
 @route('/purchase/<name>')
 @view('purchase')
 def purchase(name):
-    global current_bro
-    #Find the bro by name
-    found_bro = None
-    for bro in bros:
-        if name == bro.name:
-            found_bro = bro
-            break
-    found_bro.stock = False
-    current_bro = found_bro #Set the object as current bro and return it to the page
-    return dict(bro = found_bro) #Return found_bro to page
+    try:
+        global current_bro
+        #Find the bro by name
+        found_bro = None
+        for bro in bros:
+            if name == bro.name:
+                found_bro = bro
+                break
+            
+        ### Not sure why this works but somehow this fixes an error in my code that I cannot fix otherwise.
+        found_bro.stock = False
+        found_bro.stock = True
+        ### I wont touch what works even if its odd
+        
+        current_bro = found_bro #Set the object as current bro and return it to the page
+        return dict(bro = found_bro) #Return found_bro to page
+    except: #If any error accurs display an error message
+        return dict(bro = False)
 
 #Purchase_success page
 @route('/purchase_success', method = "POST")
 @view('purchase_success')
 def purchase_success():
-    #Get form data entries
-    Fname = request.forms.get("first_name")
-    Lname = request.forms.get("last_name")
-    date_ = request.forms.get("date") #(Format i think is (Month(first 3 characters) dd, yyyy)
-    
-    #Format the date
-    date_alt = date_.split(" ")
-    date_alt[1] = date_alt[1].strip(",")
-    
-    #Calculate the difference in date and then the total cost
-    curr_date = datetime.now()
-    d0 = date(curr_date.year, curr_date.month, curr_date.day)
-    d1 = date(int(date_alt[2]), int(MONTHS[date_alt[0]]), int(date_alt[1]))
-    delta = d1 - d0
-    
-    if delta * -1 == abs(delta): #If user selected a past date then make the year go up by one
-        d0 = date(curr_date.year, curr_date.month, curr_date.day)
-        d1 = date(int(date_alt[2]) + 1, int(MONTHS[date_alt[0]]), int(date_alt[1]))
-        delta = d1 - d0        
+    try:
+        #Get form data entries
+        Fname = request.forms.get("first_name")
+        Lname = request.forms.get("last_name")
+        date_ = request.forms.get("date") #(Format i think is (Month(first 3 characters) dd, yyyy)
         
-    total_cost = current_bro.cost * min(delta.days, 1)
-    total_cost = str(total_cost)
-    current_bro.stock = False #Change stock
-    current_bro.booked_details = [Fname, Lname, str(curr_date.strftime("%B")) + " " + str(curr_date.day) + ", " + str(curr_date.year), date_, total_cost] #Store the booked details in the object
-    return dict(bro = current_bro) #Pass object back into page
+        #Format the date
+        date_alt = date_.split(" ")
+        date_alt[1] = date_alt[1].strip(",")
+        
+        #Calculate the difference in date and then the total cost
+        curr_date = datetime.now()
+        d0 = date(curr_date.year, curr_date.month, curr_date.day)
+        d1 = date(int(date_alt[2]), int(MONTHS[date_alt[0]]), int(date_alt[1]))
+        delta = d1 - d0   
+            
+        total_cost = current_bro.cost * delta.days #Calculate total cost
+        
+        if total_cost != abs(total_cost): #Check if cost is negative, if it is they must have selected a passed date. Ask them to repeat
+            return dict(bro = False)
+        
+        total_cost = current_bro.cost * max(delta.days, 1) #Make sure that the minimum cost is for 1 day
+        
+        total_cost = str(total_cost)
+        current_bro.stock = False #Change stock
+        current_bro.booked_details = [Fname, Lname, str(curr_date.strftime("%B")) + " " + str(curr_date.day) + ", " + str(curr_date.year), date_, total_cost] #Store the booked details in the object
+        return dict(bro = current_bro) #Pass object back into page
+    except: #If any error accurs display an error message
+        return dict(bro = False)
+
+#return_product page
+@route('/return_product.html')
+@view('return_product.html')
+def return_product():
+    return dict(bro = True) #Return True so that the page does not throw an error
+
+#return_success page
+@route('/return_success', method = "POST")
+@view('return_success')
+def return_success():
+    try:
+        #Get form data entries
+        Fname = request.forms.get("first_name")
+        Lname = request.forms.get("last_name")
+        
+        #Find bro object by name
+        found_purchase = None
+        for bro in bros:
+            if bro.stock == False: 
+                if bro.booked_details[0] == Fname and bro.booked_details[1] == Lname:
+                    found_purchase = bro
+                    break
+        if found_purchase == None:  
+            return dict(bro = False)
+        found_purchase.stock = True #Change stock
+        return dict(bro = found_purchase) #Return found_bro to page
+    except: #If any error accurs display an error message
+        return dict(bro = False)    
+
+#Application page
+@route('/application.html')
+@view('application.html')
+def application():
+    return dict(bro = True) #Return True so that the page does not throw an error
+
+#Application success page
+@route('/application_success', method = "POST")
+@view('application_success')
+def application_success():
+    try:
+        #Get form data entries
+        Fname = request.forms.get("first_name")
+        Lname = request.forms.get("last_name")
+        description = request.forms.get("description")
+        cost = int(request.forms.get("cost"))
+        
+        if cost != abs(cost):  #Check if it is negative, if yes the return False so that the page gives an error, asking them to input a positive number
+            return dict(bro = False) 
+        
+        bros.append(Bro(Fname, description, "empty.jpg", cost, True, ""))
+        return dict(bro = bros[-1])
+    except: #If any error accurs display an error message
+        return dict(bro = False)
+
+
 
 
 ##Static files###

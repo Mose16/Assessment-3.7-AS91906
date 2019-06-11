@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<link href="/css/purchase.css" rel="stylesheet" type="text/css">
+	</head>
+	%include('Shared/header.html')
+	%include('Shared/navigation.html')
+	<body>
+		<div style="padding: 150px 250px;">
+			 <div class="row" style="text-align: center;">
+				%if bro != False:
+					<p>Thanks {{bro.name}}. Your application is being reviewed.</p>
+				%else:
+					<h1>Error!</h1>
+					<p>Please input a positive whole number for cost</p>
+					<a href="application.html"><h5>Return</h5></a>
+				%end
+			</div>
+		</div>
+	</body>
+</html>
