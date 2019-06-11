@@ -44,7 +44,7 @@ bros = [ #Test data filled with test bros
 @route('/')
 @view('index')
 def index():
-    pass
+    return dict(bro = True)
 
 #Product page
 @route('/products.html')
@@ -69,6 +69,7 @@ def purchase(name):
                 found_bro = bro
                 break
         found_bro.stock = False
+        found_bro.stock = True
         current_bro = found_bro #Set the object as current bro and return it to the page
         return dict(bro = found_bro) #Return found_bro to page
     except:
@@ -109,7 +110,7 @@ def purchase_success():
 @route('/return_product.html')
 @view('return_product.html')
 def return_product():
-    pass
+    return dict(bro = True)
 
 #return_success page
 @route('/return_success', method = "POST")
@@ -138,7 +139,7 @@ def return_success():
 @route('/application.html')
 @view('application.html')
 def application():
-    pass
+    return dict(bro = True)
 
 #Application success page
 @route('/application_success', method = "POST")
