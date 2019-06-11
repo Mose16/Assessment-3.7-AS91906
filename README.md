@@ -26,3 +26,9 @@ Ver-6
 
 Ver-7
   Errors found and fixed. Final changes and final planning document
+  
+  
+                                                         FINAL RELEASE
+                                                      
+                                Credits: Moses Wescombe as Designer, Programmer, Manager, Planner,                                                            Morral support, Sole investor, Tester, Photographer, Network engineer, Supercross champion,                                                    Astronaut, Blue whale lover, Snowboard champion, Heart throb and lover of many women.
+                                                    mosesstephenw@hotmail.com
