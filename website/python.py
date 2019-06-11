@@ -44,7 +44,7 @@ bros = [ #Test data filled with test bros
 @route('/')
 @view('index')
 def index():
-    return dict(bro = True)
+    return dict(bro = True) #Return True so that the page does not throw an error
 
 #Product page
 @route('/products.html')
@@ -52,7 +52,7 @@ def index():
 def products():
     try:
         return dict(bros_list = bros)
-    except:
+    except: #If any error accurs display an error message
         return dict(bros_list = False)    
 
 #Purchase page
@@ -68,11 +68,15 @@ def purchase(name):
             if name == bro.name:
                 found_bro = bro
                 break
+            
+        ### Not sure why this works but somehow this fixes an error in my code that I cannot fix otherwise.
         found_bro.stock = False
         found_bro.stock = True
+        ### I wont touch what works even if its odd
+        
         current_bro = found_bro #Set the object as current bro and return it to the page
         return dict(bro = found_bro) #Return found_bro to page
-    except:
+    except: #If any error accurs display an error message
         return dict(bro = False)
 
 #Purchase_success page
@@ -95,22 +99,25 @@ def purchase_success():
         d1 = date(int(date_alt[2]), int(MONTHS[date_alt[0]]), int(date_alt[1]))
         delta = d1 - d0   
             
-        total_cost = current_bro.cost * delta
-        if total_cost != abs(total_cost):
+        total_cost = current_bro.cost * delta.days #Calculate total cost
+        
+        if total_cost != abs(total_cost): #Check if cost is negative, if it is they must have selected a passed date. Ask them to repeat
             return dict(bro = False)
+        
+        total_cost = current_bro.cost * max(delta.days, 1) #Make sure that the minimum cost is for 1 day
         
         total_cost = str(total_cost)
         current_bro.stock = False #Change stock
         current_bro.booked_details = [Fname, Lname, str(curr_date.strftime("%B")) + " " + str(curr_date.day) + ", " + str(curr_date.year), date_, total_cost] #Store the booked details in the object
         return dict(bro = current_bro) #Pass object back into page
-    except:
+    except: #If any error accurs display an error message
         return dict(bro = False)
 
 #return_product page
 @route('/return_product.html')
 @view('return_product.html')
 def return_product():
-    return dict(bro = True)
+    return dict(bro = True) #Return True so that the page does not throw an error
 
 #return_success page
 @route('/return_success', method = "POST")
@@ -132,14 +139,14 @@ def return_success():
             return dict(bro = False)
         found_purchase.stock = True #Change stock
         return dict(bro = found_purchase) #Return found_bro to page
-    except:
+    except: #If any error accurs display an error message
         return dict(bro = False)    
 
 #Application page
 @route('/application.html')
 @view('application.html')
 def application():
-    return dict(bro = True)
+    return dict(bro = True) #Return True so that the page does not throw an error
 
 #Application success page
 @route('/application_success', method = "POST")
@@ -152,12 +159,12 @@ def application_success():
         description = request.forms.get("description")
         cost = int(request.forms.get("cost"))
         
-        if cost != abs(cost):
+        if cost != abs(cost):  #Check if it is negative, if yes the return False so that the page gives an error, asking them to input a positive number
             return dict(bro = False) 
         
         bros.append(Bro(Fname, description, "empty.jpg", cost, True, ""))
         return dict(bro = bros[-1])
-    except:
+    except: #If any error accurs display an error message
         return dict(bro = False)
 
 

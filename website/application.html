@@ -29,7 +29,7 @@
 					  <div class="row">
 						<div class="file-field input-field">
 							<div class="input-field col s12">
-								<input name="cost" id="cost" type="number" class="validate" required>
+								<input name="cost" id="cost" type="number" class="validate" min="0" value="10" required>
 								<label for="cost">Cost</label>
 							</div>
 						</div>
@@ -43,8 +43,10 @@
 				 </div>
 			</div>
 		%else:
-			<h1>Error!</h1>
-			<a href="/"><p>Go back</p></a>
+			<div style="padding: 150px 250px;">
+				<div class="row" style="text-align: center;">
+					<h1>Error!</h1>
+					<a href="/"><p>Go back</p></a>
 		%end
 	</body>
 	<script>
