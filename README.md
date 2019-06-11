@@ -23,3 +23,6 @@ Ver-5
 
 Ver-6
   Create a application form to add new stock to products.
+
+Ver-7
+  Errors found and fixed. Final changes and final planning document
