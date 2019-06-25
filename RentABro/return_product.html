@@ -1,0 +1,45 @@
+<!DOCTYPE.html>
+<html>
+	<head>
+		<link href="/css/purchase.css" rel="stylesheet" type="text/css">
+	</head>
+	%include('Shared/header.html')
+	%include('Shared/navigation.html')
+	<body>
+		%if bro != False:
+			<div style="padding: 100px 250px;">
+				 <div class="row">
+					<form class="col s12" action="/return_success" method="POST">
+					  <div class="row">
+						<div class="input-field col s6">
+						  <input name="first_name" id="first_name" type="text" class="validate" required>
+						  <label for="first_name">Name</label>
+						</div>
+						<div class="input-field col s6">
+						  <input name="last_name" id="last_name" type="text" class="validate" required>
+						  <label for="last_name">Last Name</label>
+						</div>
+					  </div>
+					  <div class="row" style="text-align: center;">
+						<button class="btn waves-effect waves-light blue" type="submit" name="action" style="flaot:center; position:center;">Return
+							<i class="material-icons right">send</i>
+						</button>
+					  </div>
+					</form>
+				 </div>
+			</div>
+		%else:
+			<div style="padding: 150px 250px;">
+				<div class="row" style="text-align: center;">
+					<h1>Error!</h1>
+					<a href="/"><p>Go back</p></a>
+				</div>
+			</div>
+		%end
+	</body>
+	<script>
+		$(document).ready(function(){
+			$('.datepicker').datepicker();
+		});
+    </script>
+</html>

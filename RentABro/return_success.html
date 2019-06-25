@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<link href="/css/purchase.css" rel="stylesheet" type="text/css">
+	</head>
+	%include('Shared/header.html')
+	%include('Shared/navigation.html')
+	<body>
+		<div style="padding: 150px 250px;">
+			 <div class="row" style="text-align: center;">
+				%if bro == False:
+					<h1>Sorry</h1>
+					<p>Could not find a booking under that name, please try again</p>
+					<a href="return_product.html"><h5>Return</h5></a>
+				%else:
+					<h1>Bro: {{bro.name}}</h1>
+					<p>Returned by: {{bro.booked_details[0]}} {{bro.booked_details[1]}}</p>
+					</br>
+				%end
+				
